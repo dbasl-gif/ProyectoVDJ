@@ -5,12 +5,18 @@ using UnityEngine.UI;
 
 public class ReadUIValues : MonoBehaviour
 {
-    public Text textSlider;
-    public Slider miSlider;
+    public Text textVolumen;
+    public Text textSens;
+
+    public Slider slidervolumen;
+    public Slider slidersens;
+
 
     public void OnSliderChanged()
     {
-        textSlider.text = (miSlider.value*100).ToString("F0") + "%"; 
+        textVolumen.text = (slidervolumen.value*100).ToString("F0") + "%";
+        textSens.text = (slidersens.value*100).ToString("F0") + "%";
+
 
     }
 
