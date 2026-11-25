@@ -165,7 +165,7 @@ public class BallCollector : MonoBehaviour
         {
             ballsText.text = heldBall == null
                 ? "Bolas: 0"
-                : "Bolas: 1 | Valor: " + heldBall.value;
+                : "Bolas: 1  Valor: " + heldBall.value;
         }
 
         if (moneyText != null)

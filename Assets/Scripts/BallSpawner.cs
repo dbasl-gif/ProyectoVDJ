@@ -1,24 +1,55 @@
 
 using UnityEngine;
+using System.Collections;
 
 public class BallSpawner : MonoBehaviour
 {
+    [Header("Configuracion")]
     public GameObject ballPrefab;
-    public int numberOfBalls = 200;
+    public int numberOfBalls = 1000;
     public Vector3 poolSize = new Vector3(18, 3, 18);
 
-    void Start()
+    [Header("Aparicion de bolas")]
+    public float spawnDelay;
+    public float separation = 0.6f;
+    int spawnedBalls = 0;
+
+    [Header("Colores")]
+    public Color[] ballColors;
+
+    IEnumerator Start()
     {
-        for (int i = 0; i < numberOfBalls; i++)
+        yield return new WaitForSeconds(spawnDelay * Time.deltaTime);
+
+        if (spawnedBalls < numberOfBalls)
         {
-            float x = Random.Range(-poolSize.x / 2f, poolSize.x / 2f);
-            float y = Random.Range(0.5f, poolSize.y);
-            float z = Random.Range(-poolSize.z / 2f, poolSize.z / 2f);
+            GameObject ball = Instantiate(
+                ballPrefab,
+                new Vector3(
+                    transform.position.x + Random.Range(0, separation),
+                    transform.position.y + Random.Range(0, separation),
+                    transform.position.z + Random.Range(0, separation)
+                ),
+                Quaternion.identity
+            );
 
-            Vector3 position = transform.position
-                + new Vector3(x, y, z);
+            Renderer ballRenderer = ball.GetComponentInChildren<Renderer>();
 
-            Instantiate(ballPrefab, position, Random.rotation);
+            if (ballRenderer != null && ballColors.Length > 0)
+            {
+                ballRenderer.material.color =
+                    ballColors[Random.Range(0, ballColors.Length)];
+            }
+
+            spawnedBalls++;
         }
+        else
+        {
+            Debug.Log("Todas las pelotas han sido generadas");
+        }
+
+        Debug.Log("Bolas generadas: " + spawnedBalls);
+
+        StartCoroutine(Start());
     }
 }
