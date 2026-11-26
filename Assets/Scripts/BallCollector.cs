@@ -1,18 +1,23 @@
 
-using System;
 using TMPro;
 using UnityEngine;
 
 public class BallCollector : MonoBehaviour
 {
+    [Header("Recogida")]
     public Transform playerCamera;
     public Transform ballHoldPoint;
     public float pickupDistance = 3f;
 
+    [Header("Textos")]
     public TMP_Text ballsText;
     public TMP_Text moneyText;
 
+    [Header("Dinero")]
     public int money = 0;
+    public int sellMultiplier = 1;
+
+    [Header("Bola")]
     public Ball heldBall;
 
     void Start()
@@ -22,7 +27,6 @@ public class BallCollector : MonoBehaviour
 
     void Update()
     {
-        
         if (Input.GetKeyDown(KeyCode.G))
         {
             DropHeldBall();
@@ -87,7 +91,7 @@ public class BallCollector : MonoBehaviour
             }
         }
     }
-    
+
     public void DropHeldBall()
     {
         if (heldBall == null)
@@ -119,7 +123,6 @@ public class BallCollector : MonoBehaviour
         UpdateText();
     }
 
-
     public void UpgradeHeldBall()
     {
         if (heldBall == null)
@@ -143,7 +146,6 @@ public class BallCollector : MonoBehaviour
         UpdateText();
     }
 
-
     public void SellHeldBall()
     {
         if (heldBall == null)
@@ -151,7 +153,9 @@ public class BallCollector : MonoBehaviour
             return;
         }
 
-        money += heldBall.value;
+        int earnedMoney = heldBall.value * sellMultiplier;
+
+        money += earnedMoney;
 
         Destroy(heldBall.gameObject);
         heldBall = null;

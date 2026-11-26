@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401ba4efe3e24f44994eead73a9afa4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ball
-  value: 1
+  value: 100
   level: 1
 --- !u!54 &-1446115273162384911
 Rigidbody:
